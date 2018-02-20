@@ -11,5 +11,5 @@ void UART_SendByte(uint8_t data);
 uint8_t UART_ReadByte(void);
 void UART_SendString(uint8_t *string);
 void UART_ReadString(uint8_t *string);
-
+void UART_SetBaudrate(uint16_t);
 #endif

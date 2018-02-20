@@ -6,12 +6,6 @@ void Relays_init(void)
   RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
   RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
   
-  //GPIOA->MODER = (uint32_t)0xF5555555;
-  
-  
-  
-
-  //GPIOA->MODER &= ~(GPIO_MODER_MODER15|GPIO_MODER_MODER14);
   GPIOA->MODER &= ~(
                       GPIO_MODER_MODER0|
                       GPIO_MODER_MODER1|
@@ -88,7 +82,8 @@ void Relays_init(void)
                  );
   
   GPIOB->MODER &= ~(GPIO_MODER_MODER0|GPIO_MODER_MODER1|GPIO_MODER_MODER6);
-  GPIOB->MODER |= (GPIO_MODER_MODER0_1|GPIO_MODER_MODER1_1|GPIO_MODER_MODER6_1);
+  GPIOB->MODER |= (GPIO_MODER_MODER0_0|GPIO_MODER_MODER1_0|GPIO_MODER_MODER6_0);
+  //GPIOB->MODER |= GPIO_MODER_MODER0_0;
   GPIOB->OTYPER &= ~(GPIO_OTYPER_OT_0|GPIO_OTYPER_OT_1|GPIO_OTYPER_OT_6);
   GPIOB->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEEDR0|GPIO_OSPEEDR_OSPEEDR1|GPIO_OSPEEDR_OSPEEDR6);
   GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPDR0|GPIO_PUPDR_PUPDR1|GPIO_PUPDR_PUPDR6);
@@ -169,11 +164,59 @@ void Relays_Off(uint16_t relay_mask)
   }
 }
 
+void Relays_SetRelayState(uint8_t relayNum, uint8_t relayState)
+{
+  switch(relayNum)
+  {
+  case 1:
+    if(relayState)SET_BIT(PRELAY1,RELAY1);else RESET_BIT(PRELAY1,RELAY1);
+    return;
+  case 2:
+    if(relayState)SET_BIT(PRELAY2,RELAY2);else RESET_BIT(PRELAY2,RELAY2);
+    return;
+  case 3:
+    if(relayState)SET_BIT(PRELAY3,RELAY3);else RESET_BIT(PRELAY3,RELAY3);
+    return;
+  case 4:
+    if(relayState)SET_BIT(PRELAY4,RELAY4);else RESET_BIT(PRELAY4,RELAY4);
+    return;
+  case 5:
+    if(relayState)SET_BIT(PRELAY5,RELAY5);else RESET_BIT(PRELAY5,RELAY5);
+    return;
+  case 6:
+    if(relayState)SET_BIT(PRELAY6,RELAY6);else RESET_BIT(PRELAY6,RELAY6);
+    return;
+  case 7:
+    if(relayState)SET_BIT(PRELAY7,RELAY7);else RESET_BIT(PRELAY7,RELAY7);
+    return;
+  case 8:
+    if(relayState)SET_BIT(PRELAY8,RELAY8);else RESET_BIT(PRELAY8,RELAY8);
+    return;
+  case 9:
+    if(relayState)SET_BIT(PRELAY9,RELAY9);else RESET_BIT(PRELAY9,RELAY9);
+    return;
+  case 10:
+    if(relayState)SET_BIT(PRELAY10,RELAY10);else RESET_BIT(PRELAY10,RELAY10);
+    return;
+  case 11:
+    if(relayState)SET_BIT(PRELAY11,RELAY11);else RESET_BIT(PRELAY11,RELAY11);
+    return;
+  case 12:
+    if(relayState)SET_BIT(PRELAY12,RELAY12);else RESET_BIT(PRELAY12,RELAY12);
+    return;
+  case 13:
+    if(relayState)SET_BIT(PRELAY13,RELAY13);else RESET_BIT(PRELAY13,RELAY13);
+    return;
+  case 14:
+    if(relayState)SET_BIT(PRELAY14,RELAY14);else RESET_BIT(PRELAY14,RELAY14);
+    return;
+  }
+}
 
 void Relays_AllOn(void)
 {
   GPIOA->ODR |= 0x19FF; //PA0-PA8,PA11,PA12
-  GPIOB->ODR |= 0x43; //PB0-PB1
+  GPIOB->ODR |= 0x43; //PB0-PB1,PB6
 }
 
 
